@@ -1,14 +1,15 @@
-# Welcome to your CDK TypeScript project
+# Carbon Aware Serverless Jobs
 
-This is a blank project for CDK development with TypeScript.
+This projects demonstrates how to decarbonize your batch jobs.
+It utilizes API's to find the the best execution time window with minimal grid carbon intensity and combines it with serverless AWS services.
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+The infrastructure is deployed using [AWS CDK](https://aws.amazon.com/cdk/).
 
 ## Useful commands
 
-* `npm run build`   compile typescript to js
-* `npm run watch`   watch for changes and compile
-* `npm run test`    perform the jest unit tests
-* `cdk deploy`      deploy this stack to your default AWS account/region
-* `cdk diff`        compare deployed stack with current state
-* `cdk synth`       emits the synthesized CloudFormation template
+- `yarn build` compile typescript to js
+- `yarn watch` watch for changes and compile
+- `yarn test` perform unit tests
+- `yarn cdk deploy` deploy this stack to your default AWS account/region
+- `yarn cdk diff` compare deployed stack with current state
+- `yarn cdk synth` emits the synthesized CloudFormation template
