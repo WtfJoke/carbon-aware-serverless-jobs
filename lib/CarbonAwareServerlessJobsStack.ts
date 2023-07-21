@@ -1,7 +1,13 @@
 import * as cdk from "aws-cdk-lib";
+import { SfnStateMachine } from "aws-cdk-lib/aws-events-targets";
 import { Runtime, Tracing } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Secret } from "aws-cdk-lib/aws-secretsmanager";
+import { StateMachine, Wait, WaitTime } from "aws-cdk-lib/aws-stepfunctions";
+import {
+  CallAwsService,
+  LambdaInvoke,
+} from "aws-cdk-lib/aws-stepfunctions-tasks";
 import { Construct } from "constructs";
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
@@ -39,5 +45,22 @@ export class CarbonAwareServerlessJobsStack extends cdk.Stack {
     carbonAwareComputingApiKeySecret.grantRead(
       getBestRenewableEnergyTimeWindowLambda,
     );
+
+    const getStatus = new LambdaInvoke(this, "Get time window", {
+      lambdaFunction: getBestRenewableEnergyTimeWindowLambda,
+    });
+
+    const waitStep = new Wait(this, "Wait for best time Window", {
+      time: WaitTime.secondsPath(
+        "$.Payload.waitTimeInSecondsForOptimalExecution",
+      ),
+    });
+
+    const definition = getStatus.next(waitStep);
+
+    new StateMachine(this, "BatchJobScheduler", {
+      definition,
+      tracingEnabled: true,
+    });
   }
 }
