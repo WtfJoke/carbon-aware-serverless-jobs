@@ -4,7 +4,11 @@ import * as cdk from "aws-cdk-lib";
 import { CarbonAwareServerlessJobsStack } from "../lib/CarbonAwareServerlessJobsStack";
 
 const app = new cdk.App();
-new CarbonAwareServerlessJobsStack(app, "CarbonAwareServerlessJobsStack", {
+new CarbonAwareServerlessJobsStack(app, "CarbonAwareJobsStack", {
+  tags: {
+    service: "carbon-aware-serverless-jobs",
+    repository: "https://github.com/WtfJoke/carbon-aware-serverless-jobs",
+  },
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
    * but a single synthesized template can be deployed anywhere. */
