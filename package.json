@@ -2,7 +2,7 @@
   "name": "carbon-aware-serverless-jobs",
   "version": "0.1.0",
   "bin": {
-    "carbon-aware-serverless-jobs": "bin/carbon-aware-serverless-jobs.js"
+    "carbon-aware-serverless-jobs": "bin/CarbonAwareServerlessJobs.js"
   },
   "scripts": {
     "build": "tsc",
