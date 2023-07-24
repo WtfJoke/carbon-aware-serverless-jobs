@@ -3,6 +3,7 @@ import { SfnStateMachine } from "aws-cdk-lib/aws-events-targets";
 import { Runtime, Tracing } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Secret } from "aws-cdk-lib/aws-secretsmanager";
+import { StringParameter } from "aws-cdk-lib/aws-ssm";
 import { StateMachine, Wait, WaitTime } from "aws-cdk-lib/aws-stepfunctions";
 import {
   CallAwsService,
@@ -15,14 +16,14 @@ export class CarbonAwareServerlessJobsStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const carbonAwareComputingApiKeySecret = new Secret(
-      this,
-      "CarbonAwareComputingApiKey",
-      {
-        description:
-          "API key for Carbon Aware Computing Forecast API (https://forecast.carbon-aware-computing.com/swagger/UI)",
-      },
-    );
+    const carbonAwareComputingApiKey =
+      StringParameter.fromSecureStringParameterAttributes(
+        this,
+        "CarbonAwareComputingApiKeyString",
+        {
+          parameterName: "/carbon-aware-computing/api-key",
+        },
+      );
 
     const getBestRenewableEnergyTimeWindowLambda = new NodejsFunction(
       this,
@@ -36,13 +37,13 @@ export class CarbonAwareServerlessJobsStack extends cdk.Stack {
         tracing: Tracing.ACTIVE,
         memorySize: 512,
         environment: {
-          CARBON_AWARE_COMPUTING_API_KEY_SECRET_NAME:
-            carbonAwareComputingApiKeySecret.secretName,
+          CARBON_AWARE_COMPUTING_API_KEY_SECURE_STRING_PARAMETER_NAME:
+            carbonAwareComputingApiKey.parameterName,
         },
       },
     );
 
-    carbonAwareComputingApiKeySecret.grantRead(
+    carbonAwareComputingApiKey.grantRead(
       getBestRenewableEnergyTimeWindowLambda,
     );
 

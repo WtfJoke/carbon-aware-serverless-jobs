@@ -1,9 +1,9 @@
 // lambda handler
 import { Logger } from "@aws-lambda-powertools/logger";
 import { Tracer } from "@aws-lambda-powertools/tracer";
-import { APIGatewayProxyResult } from "aws-lambda";
+import { getParameter } from "@aws-lambda-powertools/parameters/ssm";
 import queryString from "query-string";
-import { getSecret } from "@aws-lambda-powertools/parameters/secrets";
+
 import {
   BestRenewableEnergyTimeWindowPayload,
   BestRenewableEnergyTimeWindowPayloadScheme,
@@ -84,20 +84,21 @@ const getBestRenewableEnergyTimeWindow = async ({
 };
 
 const getApiKey = async () => {
-  const secretName = process.env.CARBON_AWARE_COMPUTING_API_KEY_SECRET_NAME;
-  if (!secretName) {
+  const secureStringParameterName =
+    process.env.CARBON_AWARE_COMPUTING_API_KEY_SECURE_STRING_PARAMETER_NAME;
+  if (!secureStringParameterName) {
     throw new Error(
-      "Missing CARBON_AWARE_COMPUTING_API_KEY_SECRET_NAME environment variable",
+      "Missing CARBON_AWARE_COMPUTING_API_KEY_SECURE_STRING_PARAMETER_NAME environment variable",
     );
   }
 
   const oneDayInSeconds = 60 * 60 * 24;
-  const apiKey = await getSecret<string>(secretName, {
+  const apiKey = await getParameter<string>(secureStringParameterName, {
     maxAge: oneDayInSeconds,
   });
   if (!apiKey) {
     throw new Error(
-      `Missing Carbon Aware Computing API key in Secret ${secretName}`,
+      `Missing Carbon Aware Computing API key in Secret ${secureStringParameterName}`,
     );
   }
   return apiKey;
