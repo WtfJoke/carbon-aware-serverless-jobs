@@ -1,6 +1,6 @@
 import * as cdk from "aws-cdk-lib";
 import { StringParameter } from "aws-cdk-lib/aws-ssm";
-import { Pass } from "aws-cdk-lib/aws-stepfunctions";
+import { Pass, Result } from "aws-cdk-lib/aws-stepfunctions";
 import { Construct } from "constructs";
 import { CarbonAwareComputingServerlessJobsConstruct } from "./carbon/carbon-aware-computing/CarbonAwareComputingServleressJobsConstruct";
 
@@ -10,7 +10,12 @@ export class CarbonAwareServerlessJobsStack extends cdk.Stack {
 
     const fakeBatchJobTask = new Pass(this, "My long running batch job", {
       comment: "This is my long running batch job",
+      inputPath: "$.batchJobInput",
       resultPath: "$.batchJobOutput",
+      result: Result.fromObject({
+        // This is the fake result of the batch job
+        success: true,
+      }),
     });
 
     const carbonAwareComputingApiKey =
