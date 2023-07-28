@@ -16,10 +16,16 @@ import {
 } from "./models";
 import dayjs, { Dayjs } from "dayjs";
 import minMax from "dayjs/plugin/minMax";
+import duration from "dayjs/plugin/duration";
+import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(minMax);
+dayjs.extend(duration);
+dayjs.extend(relativeTime);
 
 const serviceName = "carbon-aware-serverless-jobs";
-const logger = new Logger({ serviceName });
+const logger = new Logger({ serviceName, persistentLogAttributes: {} });
+const BASE_API_URL = "https://forecast.carbon-aware-computing.com";
+
 new Tracer({ serviceName });
 
 export const handler = async (
@@ -48,10 +54,14 @@ const getBestRenewableEnergyTimeWindow = async ({
       dataStartAt: earliestDateTime,
       dataEndAt: latestDateTime,
     });
-  const apiUrl =
-    "https://forecast.carbon-aware-computing.com/emissions/forecasts/current?" +
-    queryString.stringify(queryParams);
-  logger.info("Fetch from apiUrl: " + apiUrl);
+
+  const apiEndpoint = `${BASE_API_URL}/emissions/forecasts/current`;
+  const apiUrl = `${apiEndpoint}?${queryString.stringify(queryParams)}`;
+  logger.info("Fetching from apiUrl: " + apiUrl, {
+    apiEndpoint,
+    queryParams,
+    apiUrl,
+  });
 
   const forecastResponse = await fetch(apiUrl, {
     headers: {
@@ -59,7 +69,9 @@ const getBestRenewableEnergyTimeWindow = async ({
     },
   });
   if (!forecastResponse.ok) {
-    logger.error(forecastResponse.statusText);
+    logger.error(forecastResponse.statusText, {
+      statusCode: forecastResponse.status,
+    });
     logger.error(await forecastResponse.text());
     throw new Error("Failed to fetch forecast data");
   }
@@ -121,10 +133,21 @@ const getWaitTimeInSecondsForOptimalExecution = (
   optimalExecutionDateTime: Dayjs,
 ) => {
   const now = dayjs();
+  let waitTimeInSecondsForOptimalExecution: number;
 
   if (optimalExecutionDateTime.isBefore(now)) {
-    return 0;
+    waitTimeInSecondsForOptimalExecution = 0;
   } else {
-    return optimalExecutionDateTime.diff(now, "seconds");
+    waitTimeInSecondsForOptimalExecution = optimalExecutionDateTime.diff(
+      now,
+      "seconds",
+    );
   }
+
+  logger.info(
+    `Waiting for ${dayjs
+      .duration(waitTimeInSecondsForOptimalExecution, "seconds")
+      .humanize()} for optimal execution`,
+  );
+  return waitTimeInSecondsForOptimalExecution;
 };
