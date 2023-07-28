@@ -1,4 +1,3 @@
-// lambda handler
 import { Logger } from "@aws-lambda-powertools/logger";
 import { Tracer } from "@aws-lambda-powertools/tracer";
 import { getParameter } from "@aws-lambda-powertools/parameters/ssm";
@@ -9,12 +8,12 @@ import {
   BestRenewableEnergyTimeWindowPayloadScheme,
   BestRenewableEnergyTimeWindowResponse,
   BestRenewableEnergyTimeWindowResponseScheme,
-} from "./models";
+} from "../models";
 import {
   CarbonAwareComputingForecastQueryParams,
   CarbonAwareComputingForecastQueryParamsScheme,
   CarbonAwareComputingForecastResponse,
-} from "./carbon-aware-computing/models";
+} from "./models";
 import dayjs, { Dayjs } from "dayjs";
 import minMax from "dayjs/plugin/minMax";
 dayjs.extend(minMax);

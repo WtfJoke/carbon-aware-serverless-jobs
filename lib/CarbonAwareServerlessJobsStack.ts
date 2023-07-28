@@ -1,16 +1,10 @@
 import * as cdk from "aws-cdk-lib";
-import { SfnStateMachine } from "aws-cdk-lib/aws-events-targets";
 import { Runtime, Tracing } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
-import { Secret } from "aws-cdk-lib/aws-secretsmanager";
 import { StringParameter } from "aws-cdk-lib/aws-ssm";
 import { StateMachine, Wait, WaitTime } from "aws-cdk-lib/aws-stepfunctions";
-import {
-  CallAwsService,
-  LambdaInvoke,
-} from "aws-cdk-lib/aws-stepfunctions-tasks";
+import { LambdaInvoke } from "aws-cdk-lib/aws-stepfunctions-tasks";
 import { Construct } from "constructs";
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class CarbonAwareServerlessJobsStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -29,10 +23,11 @@ export class CarbonAwareServerlessJobsStack extends cdk.Stack {
       this,
       "GetBestTimeWindow",
       {
-        entry: "lib/carbon/GetBestRenewableEnergyTimeWindow.ts",
+        entry:
+          "lib/carbon/carbon-aware-computing/GetBestRenewableEnergyTimeWindow.ts",
         handler: "handler",
         description:
-          "Get the best time window to run a job based on the carbon intensity of the grid.",
+          "Get the best time window to run a job based on the carbon intensity of the grid using the API of https://www.carbon-aware-computing.com/.",
         runtime: Runtime.NODEJS_18_X,
         tracing: Tracing.ACTIVE,
         memorySize: 512,
@@ -66,7 +61,7 @@ export class CarbonAwareServerlessJobsStack extends cdk.Stack {
 
     new StateMachine(this, "Scheduler", {
       definition,
-      stateMachineName: "CarbonAwareServerlessBatchJobsScheduler",
+      stateMachineName: "CarbonAwareServerlessCACBatchJobsScheduler",
       tracingEnabled: true,
     });
   }
