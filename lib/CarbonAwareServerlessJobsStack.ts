@@ -1,5 +1,5 @@
 import * as cdk from "aws-cdk-lib";
-import { Runtime, Tracing } from "aws-cdk-lib/aws-lambda";
+import { Architecture, Runtime, Tracing } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { StringParameter } from "aws-cdk-lib/aws-ssm";
 import { StateMachine, Wait, WaitTime } from "aws-cdk-lib/aws-stepfunctions";
@@ -31,6 +31,7 @@ export class CarbonAwareServerlessJobsStack extends cdk.Stack {
         runtime: Runtime.NODEJS_18_X,
         tracing: Tracing.ACTIVE,
         memorySize: 512,
+        architecture: Architecture.ARM_64,
         environment: {
           CARBON_AWARE_COMPUTING_API_KEY_SECURE_STRING_PARAMETER_NAME:
             carbonAwareComputingApiKey.parameterName,
