@@ -31,14 +31,17 @@ new Tracer({ serviceName });
 export const handler = async (
   event: BestRenewableEnergyTimeWindowPayload,
 ): Promise<BestRenewableEnergyTimeWindowResponse> => {
-  logger.info(JSON.stringify(event));
+  logger.info(
+    "Start to determine best execution time window with request",
+    event,
+  );
 
   const payload: BestRenewableEnergyTimeWindowPayload =
     BestRenewableEnergyTimeWindowPayloadScheme.parse(event);
   const response: BestRenewableEnergyTimeWindowResponse =
     await getBestRenewableEnergyTimeWindow(payload);
 
-  logger.info(JSON.stringify(response));
+  logger.info("Returning best time window", response);
   return response;
 };
 
@@ -78,10 +81,9 @@ const getBestRenewableEnergyTimeWindow = async ({
   const forecastResponseArray: CarbonAwareComputingForecastResponse =
     await forecastResponse.json();
 
-  const optimalExecutionDate = await extractOptimalExecutionDate(
+  const optimalExecutionDateTime = await extractOptimalExecutionDate(
     forecastResponseArray,
   );
-  const optimalExecutionDateTime = dayjs(optimalExecutionDate);
   const waitTimeInSecondsForOptimalExecution =
     getWaitTimeInSecondsForOptimalExecution(optimalExecutionDateTime);
 
@@ -109,7 +111,7 @@ const getApiKey = async () => {
   });
   if (!apiKey) {
     throw new Error(
-      `Missing Carbon Aware Computing API key in Secret ${secureStringParameterName}`,
+      `Missing Carbon Aware Computing API key in Parameter ${secureStringParameterName}`,
     );
   }
   return apiKey;
@@ -117,7 +119,7 @@ const getApiKey = async () => {
 
 const extractOptimalExecutionDate = async (
   forecastResponse: CarbonAwareComputingForecastResponse,
-) => {
+): Promise<Dayjs> => {
   const forecastOptimalDataPoints = forecastResponse[0].optimalDataPoints;
   if (!forecastOptimalDataPoints || forecastOptimalDataPoints.length !== 1) {
     throw new Error(
@@ -126,7 +128,7 @@ const extractOptimalExecutionDate = async (
   }
 
   const optimalExecutionDate = forecastOptimalDataPoints[0].timestamp;
-  return optimalExecutionDate;
+  return dayjs(optimalExecutionDate);
 };
 
 const getWaitTimeInSecondsForOptimalExecution = (
