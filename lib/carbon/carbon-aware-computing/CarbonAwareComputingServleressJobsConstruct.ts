@@ -8,12 +8,14 @@ import {
   DefinitionBody,
   StateMachine,
   IChainable,
+  LogOptions,
 } from "aws-cdk-lib/aws-stepfunctions";
 import { LambdaInvoke } from "aws-cdk-lib/aws-stepfunctions-tasks";
 
 interface CarbonAwareComputingServerlessJobsConstructProps {
   apiKey: IStringParameter;
   batchJobTask: IChainable;
+  logOptions?: LogOptions;
 }
 
 export class CarbonAwareComputingServerlessJobsConstruct extends Construct {
@@ -23,7 +25,7 @@ export class CarbonAwareComputingServerlessJobsConstruct extends Construct {
     props: CarbonAwareComputingServerlessJobsConstructProps,
   ) {
     super(scope, id);
-    const { apiKey, batchJobTask } = props;
+    const { apiKey, batchJobTask, logOptions } = props;
 
     const getBestRenewableEnergyTimeWindowLambda = new NodejsFunction(
       this,
@@ -69,6 +71,7 @@ export class CarbonAwareComputingServerlessJobsConstruct extends Construct {
     new StateMachine(this, "Scheduler", {
       stateMachineName: "CarbonAwareServerlessCACBatchJobsScheduler",
       definitionBody,
+      logs: logOptions,
       tracingEnabled: true,
     });
   }

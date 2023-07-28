@@ -1,8 +1,10 @@
 import * as cdk from "aws-cdk-lib";
 import { StringParameter } from "aws-cdk-lib/aws-ssm";
-import { Pass } from "aws-cdk-lib/aws-stepfunctions";
+import { LogLevel, Pass } from "aws-cdk-lib/aws-stepfunctions";
 import { Construct } from "constructs";
 import { CarbonAwareComputingServerlessJobsConstruct } from "./carbon/carbon-aware-computing/CarbonAwareComputingServleressJobsConstruct";
+import { LogGroup, RetentionDays } from "aws-cdk-lib/aws-logs";
+import { RemovalPolicy } from "aws-cdk-lib";
 
 export class CarbonAwareServerlessJobsStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -22,12 +24,26 @@ export class CarbonAwareServerlessJobsStack extends cdk.Stack {
         },
       );
 
+    const carbonAwareLogGroup = new LogGroup(
+      this,
+      "CarbonAwareComputingLogGroup",
+      {
+        retention: RetentionDays.ONE_MONTH,
+        removalPolicy: RemovalPolicy.DESTROY,
+      },
+    );
+
     new CarbonAwareComputingServerlessJobsConstruct(
       this,
       "CarbonAwareComputing",
       {
         apiKey: carbonAwareComputingApiKey,
         batchJobTask: fakeBatchJobTask,
+        logOptions: {
+          destination: carbonAwareLogGroup,
+          level: LogLevel.ALL,
+          includeExecutionData: true,
+        },
       },
     );
   }
