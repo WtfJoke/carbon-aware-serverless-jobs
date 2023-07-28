@@ -11,7 +11,6 @@ export class CarbonAwareServerlessJobsStack extends cdk.Stack {
     const fakeBatchJobTask = new Pass(this, "My long running batch job", {
       comment: "This is my long running batch job",
       inputPath: "$.batchJobInput",
-      resultPath: "$.batchJobOutput",
       result: Result.fromObject({
         // This is the fake result of the batch job
         success: true,
