@@ -1,20 +1,20 @@
 import { z } from "zod";
 
-export const BestRenewableEnergyTimeWindowPayloadScheme = z.object({
+export const CarbonAwareTimeWindowPayloadScheme = z.object({
   location: z.enum(["de", "fr", "at"]),
   earliestDateTime: z.string().datetime().optional(),
   latestDateTime: z.string().datetime().optional(),
 });
 
-export type BestRenewableEnergyTimeWindowPayload = z.infer<
-  typeof BestRenewableEnergyTimeWindowPayloadScheme
+export type CarbonAwareTimeWindowPayload = z.infer<
+  typeof CarbonAwareTimeWindowPayloadScheme
 >;
 
-export const BestRenewableEnergyTimeWindowResponseScheme = z.object({
+export const CarbonAwareTimeWindowResponseScheme = z.object({
   waitTimeInSecondsForOptimalExecution: z.number(),
   optimalExecutionDateTime: z.string().optional(),
 });
 
-export type BestRenewableEnergyTimeWindowResponse = z.infer<
-  typeof BestRenewableEnergyTimeWindowResponseScheme
+export type CarbonAwareTimeWindowResponse = z.infer<
+  typeof CarbonAwareTimeWindowResponseScheme
 >;

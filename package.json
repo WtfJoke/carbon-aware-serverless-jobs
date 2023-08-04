@@ -28,7 +28,6 @@
   "dependencies": {
     "@aws-lambda-powertools/logger": "1.12.1",
     "@aws-lambda-powertools/parameters": "1.12.1",
-    "@aws-lambda-powertools/tracer": "1.12.1",
     "@aws-sdk/client-ssm": "3.379.1",
     "aws-cdk-lib": "2.89.0",
     "constructs": "10.2.69",
