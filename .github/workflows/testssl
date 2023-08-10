@@ -1,0 +1,27 @@
+name: Test SSL Scan
+
+on:
+    workflow_dispatch:
+    push:
+      branches:
+        - "testssl"
+        
+
+permissions:
+    contents: read
+
+jobs:
+    test-ssl:
+        runs-on: ubuntu-latest
+        steps:
+            - run: |
+                echo "API_DOMAIN=codecentric.de" >> $GITHUB_ENV
+            - uses: mbogh/test-ssl-action@v2
+              with:
+                host: ${{env.API_DOMAIN}}
+                grade: A
+            - uses: actions/upload-artifact@v3
+              if: always()
+              with:
+                name: testssl.sh reports
+                path: 'output/*'
