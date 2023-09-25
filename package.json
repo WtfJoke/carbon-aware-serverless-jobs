@@ -31,7 +31,7 @@
     "@aws-sdk/client-ssm": "3.414.0",
     "aws-cdk-lib": "2.93.0",
     "constructs": "10.2.70",
-    "dayjs": "1.11.9",
+    "dayjs": "1.11.10",
     "query-string": "8.1.0",
     "source-map-support": "0.5.21",
     "zod": "3.22.2"
