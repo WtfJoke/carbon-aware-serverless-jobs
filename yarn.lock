@@ -80,25 +80,25 @@
     "@aws-sdk/util-utf8-browser" "^3.0.0"
     tslib "^1.11.1"
 
-"@aws-lambda-powertools/commons@^1.13.1":
-  version "1.13.1"
-  resolved "https://registry.yarnpkg.com/@aws-lambda-powertools/commons/-/commons-1.13.1.tgz#3980a89dd797c82ce2132a097fdc005d32a01747"
-  integrity sha512-q0nRkiOBG1v1Mj16dYff5c27BtCxv2SZMpi5nqJ44NOp6MP1QVccjx1tvuEYKr+UvQzuBj7J7w5QhjmKDZqhGA==
+"@aws-lambda-powertools/commons@^1.14.0":
+  version "1.14.0"
+  resolved "https://registry.yarnpkg.com/@aws-lambda-powertools/commons/-/commons-1.14.0.tgz#0840ed84f03687b4d6fd19a471b8f10ca8120199"
+  integrity sha512-+kxLITfkH/G4C6N9b1kmvT4HSvqxRMtzmghwdiigqSGkRubCCRaxewBIII66DHgpXK5JhoWmTmdsBVwpEWqwvA==
 
-"@aws-lambda-powertools/logger@1.13.1":
-  version "1.13.1"
-  resolved "https://registry.yarnpkg.com/@aws-lambda-powertools/logger/-/logger-1.13.1.tgz#16e4cad9a7c16e3572c13d6b39589533aa6f3f96"
-  integrity sha512-JZDrP/ow9lh6z3YArStahZciwCeaEYEDUaOnFQkJa+5hGnI9U2ZERkSK4xDFMXBxTna3lJKAZAkgoH69hHk9qA==
+"@aws-lambda-powertools/logger@1.14.0":
+  version "1.14.0"
+  resolved "https://registry.yarnpkg.com/@aws-lambda-powertools/logger/-/logger-1.14.0.tgz#cd8d255513bf637379384764773505ef89119664"
+  integrity sha512-GIj2MMFwULSKtvwcQqd6BjI5gVie/I7bPYBCfSkEhBFf2CsFPs/B3xJ+E8jMiTdaQdmvE2ykwHhqVgItRaKPvA==
   dependencies:
-    "@aws-lambda-powertools/commons" "^1.13.1"
+    "@aws-lambda-powertools/commons" "^1.14.0"
     lodash.merge "^4.6.2"
 
-"@aws-lambda-powertools/parameters@1.13.1":
-  version "1.13.1"
-  resolved "https://registry.yarnpkg.com/@aws-lambda-powertools/parameters/-/parameters-1.13.1.tgz#880a4d251c11a2f36dba4c9c6a8b0628dd435928"
-  integrity sha512-O0aD1woHP7OXHzsEk7ZN8d2VIJ6xWNNs6y1yPXt2x3aoW45Pg/6bU1OIUMUUJ/ArWOXQ9oirqS3VsGwg2T/gtA==
+"@aws-lambda-powertools/parameters@1.14.0":
+  version "1.14.0"
+  resolved "https://registry.yarnpkg.com/@aws-lambda-powertools/parameters/-/parameters-1.14.0.tgz#93ddbdede709f2b6ae7221bf8163b37a19a5cda3"
+  integrity sha512-vOq02qg2NIegp5wUySVly45LQtjiA1agjJatzlti9piYU7MtoSbfoNvHz9A181wOSQ5mf4abqWUEjBGc1RCrdg==
   dependencies:
-    "@aws-lambda-powertools/commons" "^1.13.1"
+    "@aws-lambda-powertools/commons" "^1.14.0"
     "@aws-sdk/util-base64-node" "^3.209.0"
 
 "@aws-sdk/client-ssm@3.418.0":
