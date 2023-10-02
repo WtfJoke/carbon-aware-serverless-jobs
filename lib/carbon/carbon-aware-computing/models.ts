@@ -6,8 +6,8 @@ export type CarbonAwareComputingForecastResponse =
 
 export const CarbonAwareComputingForecastQueryParamsScheme = z.object({
   location: z.enum(["de", "fr", "at"]),
-  dataStartAt: z.string().datetime().optional(),
-  dataEndAt: z.string().datetime().optional(),
+  dataStartAt: z.string().datetime(),
+  dataEndAt: z.string().datetime(),
   windowSize: z.number().optional(),
 });
 

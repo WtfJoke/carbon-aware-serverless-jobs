@@ -1,9 +1,11 @@
 import { z } from "zod";
 
+const DAY_IN_MINUTES = 24 * 60;
+
 export const CarbonAwareTimeWindowPayloadScheme = z.object({
   location: z.enum(["de", "fr", "at"]),
   earliestDateTime: z.string().datetime().optional(),
-  latestDateTime: z.string().datetime().optional(),
+  latestStartInMinutes: z.number().optional().default(DAY_IN_MINUTES),
 });
 
 export type CarbonAwareTimeWindowPayload = z.infer<

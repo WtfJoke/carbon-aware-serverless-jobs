@@ -19,6 +19,7 @@ interface CarbonAwareComputingServerlessJobsConstructProps {
 }
 
 export class CarbonAwareComputingServerlessJobsConstruct extends Construct {
+  readonly stateMachine: StateMachine;
   constructor(
     scope: Construct,
     id: string,
@@ -68,7 +69,7 @@ export class CarbonAwareComputingServerlessJobsConstruct extends Construct {
       getStatus.next(waitStep).next(batchJobTask),
     );
 
-    new StateMachine(this, "Scheduler", {
+    this.stateMachine = new StateMachine(this, "Scheduler", {
       stateMachineName: "CarbonAwareServerlessCACBatchJobsScheduler",
       definitionBody,
       logs: logOptions,
