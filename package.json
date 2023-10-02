@@ -28,7 +28,7 @@
   "dependencies": {
     "@aws-lambda-powertools/logger": "1.14.0",
     "@aws-lambda-powertools/parameters": "1.14.0",
-    "@aws-sdk/client-ssm": "3.418.0",
+    "@aws-sdk/client-ssm": "3.421.0",
     "aws-cdk-lib": "2.99.1",
     "constructs": "10.2.70",
     "dayjs": "1.11.10",
