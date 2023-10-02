@@ -3,17 +3,16 @@ import {
   ScheduleExpression,
   ScheduleTargetInput,
 } from "@aws-cdk/aws-scheduler-alpha";
-import * as cdk from "aws-cdk-lib";
-import { Duration } from "aws-cdk-lib";
+import { Stack, StackProps, TimeZone } from "aws-cdk-lib";
 import { StringParameter } from "aws-cdk-lib/aws-ssm";
 import { Pass, Result } from "aws-cdk-lib/aws-stepfunctions";
 import { Construct } from "constructs";
+import { StepFunctionsStartExecution } from "./StepFunctionsStartExecution";
 import { CarbonAwareComputingServerlessJobsConstruct } from "./carbon/carbon-aware-computing/CarbonAwareComputingServleressJobsConstruct";
-import { StepFunctionsStartExecution } from "./carbon/carbon-aware-computing/StepFunctionsStartExecution";
 import { CarbonAwareTimeWindowPayload } from "./carbon/models";
 
-export class CarbonAwareServerlessJobsStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+export class CarbonAwareServerlessJobsStack extends Stack {
+  constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
     const fakeBatchJobTask = new Pass(this, "My long running batch job", {
@@ -54,29 +53,54 @@ export class CarbonAwareServerlessJobsStack extends cdk.Stack {
     });
 
     // new Schedule(this, "RateSchedule", {
-    //   scheduleName: "CarbonAwareComputingScheduleRate",
     //   schedule: ScheduleExpression.rate(Duration.minutes(10)),
     //   target: scheduleTarget,
+    //   scheduleName: "CarbonAwareComputingScheduleRate",
     //   description: `Rate based schedule that invokes step function '${stateMachine.stateMachineName}'.`,
     // });
 
+    new Schedule(this, "AtSchedule", {
+      schedule: ScheduleExpression.at(new Date("2021-10-01T17:45:00Z")),
+      target: scheduleTarget,
+      scheduleName: "CarbonAwareComputingScheduleAT",
+      description: `Onetime Schedule that invokes step function '${stateMachine.stateMachineName}'.`,
+    });
+
     new Schedule(this, "CronSchedule", {
-      scheduleName: "CarbonAwareComputingScheduleCRON",
       schedule: ScheduleExpression.cron({
         weekDay: "MON",
         hour: "19",
         minute: "45",
-        timeZone: cdk.TimeZone.EUROPE_BERLIN,
+        timeZone: TimeZone.EUROPE_BERLIN,
       }),
       target: scheduleTarget,
+      scheduleName: "CarbonAwareComputingScheduleCRON",
       description: `CRON based Schedule that invokes step function '${stateMachine.stateMachineName}'.`,
     });
 
-    new Schedule(this, "AtSchedule", {
-      scheduleName: "CarbonAwareComputingScheduleAT",
-      schedule: ScheduleExpression.at(new Date("2021-10-01T17:45:00Z")),
-      target: scheduleTarget,
-      description: `Onetime Schedule that invokes step function '${stateMachine.stateMachineName}'.`,
-    });
+    // // Cfn Schedule Solution Start
+    // const scheduleExecutorRole = new Role(this, "ScheduleExecutorRole", {
+    //   assumedBy: new ServicePrincipal("scheduler.amazonaws.com", {
+    //     conditions: { StringEquals: { "aws:SourceAccount": this.account } },
+    //   }),
+    // });
+    // stateMachine.grantStartExecution(scheduleExecutorRole);
+
+    // new CfnSchedule(this, "CronCfnSchedule", {
+    //   scheduleExpression: "cron(18 0 ? * TUE *)",
+    //   target: {
+    //     arn: stateMachine.stateMachineArn,
+    //     roleArn: scheduleExecutorRole.roleArn,
+    //     input: JSON.stringify(stateMachinePayload),
+    //   },
+    //   flexibleTimeWindow: {
+    //     mode: "OFF",
+    //   },
+
+    //   name: "CarbonAwareComputingScheduleCRON_CFN",
+    //   description: `CRON based Schedule that invokes step function '${stateMachine.stateMachineName}'.`,
+    //   scheduleExpressionTimezone: "Europe/Berlin",
+    // });
+    // // Cfn Schedule Solution End
   }
 }
