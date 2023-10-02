@@ -35,6 +35,7 @@ export const handler = async (
 
   const payload: CarbonAwareTimeWindowPayload =
     CarbonAwareTimeWindowPayloadScheme.parse(event);
+
   const response: CarbonAwareTimeWindowResponse =
     await getCarbonAwareTimeWindow(payload);
 
@@ -45,9 +46,15 @@ export const handler = async (
 const getCarbonAwareTimeWindow = async (
   payload: CarbonAwareTimeWindowPayload,
 ): Promise<CarbonAwareTimeWindowResponse> => {
-  const optimalExecutionDateTime = await fetchForecast(payload).then(
-    extractOptimalExecutionDate,
-  );
+  const { location, earliestDateTime, latestStartInMinutes } = payload;
+  const startDate = dayjs(earliestDateTime);
+  const latestStartDate = startDate.add(latestStartInMinutes, "minutes");
+
+  const optimalExecutionDateTime = await fetchForecast({
+    location,
+    dataStartAt: startDate.toISOString(),
+    dataEndAt: latestStartDate.toISOString(),
+  }).then(extractOptimalExecutionDate);
 
   const waitTimeInSecondsForOptimalExecution =
     getWaitTimeInSecondsForOptimalExecution(optimalExecutionDateTime);
@@ -127,20 +134,21 @@ const getWaitTimeInSecondsForOptimalExecution = (
 
 const fetchForecast = async ({
   location,
-  earliestDateTime,
-  latestDateTime,
-}: CarbonAwareTimeWindowPayload): Promise<CarbonAwareComputingForecastResponse> => {
+  dataStartAt,
+  dataEndAt,
+}: CarbonAwareComputingForecastQueryParams): Promise<CarbonAwareComputingForecastResponse> => {
   const apiKey = await getApiKey();
+
   const queryParams: CarbonAwareComputingForecastQueryParams =
     CarbonAwareComputingForecastQueryParamsScheme.parse({
       location,
-      dataStartAt: earliestDateTime,
-      dataEndAt: latestDateTime,
+      dataStartAt,
+      dataEndAt,
     });
 
   const apiEndpoint = `${BASE_API_URL}/emissions/forecasts/current`;
   const apiUrl = `${apiEndpoint}?${queryString.stringify(queryParams)}`;
-  logger.info("Fetching from apiUrl: " + apiUrl, {
+  logger.info("Fetching best time window from apiUrl: " + apiUrl, {
     apiEndpoint,
     queryParams,
     apiUrl,
