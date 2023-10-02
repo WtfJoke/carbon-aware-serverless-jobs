@@ -1850,10 +1850,10 @@ astral-regex@^2.0.0:
   resolved "https://registry.yarnpkg.com/astral-regex/-/astral-regex-2.0.0.tgz#483143c567aeed4785759c0865786dc77d7d2e31"
   integrity sha512-Z7tMw1ytTXt5jqMcOP+OQteU1VuNK9Y02uuJtKQ1Sv69jXQKKg5cibLwGJow8yzZP+eAc18EmLGPal0bp36rvQ==
 
-aws-cdk-lib@2.99.1:
-  version "2.99.1"
-  resolved "https://registry.yarnpkg.com/aws-cdk-lib/-/aws-cdk-lib-2.99.1.tgz#e2cd3e091fa9c65ca2835ad9a4bb6564e6b42189"
-  integrity sha512-mUhuT2JTy3VyX9o9IOSuy7UYDimFHGnmpASwTb4rD10Hksb1dTqqN2BsXU5kogHakYevBD3vwYc87rOVso4M7Q==
+aws-cdk-lib@2.99.0:
+  version "2.99.0"
+  resolved "https://registry.yarnpkg.com/aws-cdk-lib/-/aws-cdk-lib-2.99.0.tgz#2bbd614ef84dfdcecb7db41dafebfe46f8b0e0af"
+  integrity sha512-SxCYjdzHJGi0s0xxD3OlojCgP02kzI9V/ME9XW6oX9K/zBIYiK+6SeGWzARobp9aAfDNQ8dKxWdCJb975DuZDA==
   dependencies:
     "@aws-cdk/asset-awscli-v1" "^2.2.200"
     "@aws-cdk/asset-kubectl-v20" "^2.1.2"
@@ -1869,10 +1869,10 @@ aws-cdk-lib@2.99.1:
     table "^6.8.1"
     yaml "1.10.2"
 
-aws-cdk@2.99.1:
-  version "2.99.1"
-  resolved "https://registry.yarnpkg.com/aws-cdk/-/aws-cdk-2.99.1.tgz#bfe52d36a600112b45e04526f91f0425e51a4eca"
-  integrity sha512-uWg4xhBrHNoRMlEgvWzr0MacJ92dLFeJ5AvT7nruxrgShU1fgt/Rsxw1WCXSASaVUsIUGgtO+P89x8cRU2nf7w==
+aws-cdk@2.99.0:
+  version "2.99.0"
+  resolved "https://registry.yarnpkg.com/aws-cdk/-/aws-cdk-2.99.0.tgz#eb143bb19f23f17921be56f8f1206a752cae7a0d"
+  integrity sha512-zrgo/6eoBvggyRLcJc69ZmSekp3TDOyk5I6HF0vahYFAZciZpbtEPXnVUdZ4OJRX5wuwJ4Ots9FZuVrSE1zdww==
   optionalDependencies:
     fsevents "2.3.2"
 
