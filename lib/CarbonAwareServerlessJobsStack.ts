@@ -7,9 +7,9 @@ import { Stack, StackProps, TimeZone } from "aws-cdk-lib";
 import { StringParameter } from "aws-cdk-lib/aws-ssm";
 import { Pass, Result } from "aws-cdk-lib/aws-stepfunctions";
 import { Construct } from "constructs";
-import { StepFunctionsStartExecution } from "./StepFunctionsStartExecution";
 import { CarbonAwareComputingServerlessJobsConstruct } from "./carbon/carbon-aware-computing/CarbonAwareComputingServleressJobsConstruct";
 import { CarbonAwareTimeWindowPayload } from "./carbon/models";
+import { StepFunctionsStartExecution } from "@aws-cdk/aws-scheduler-targets-alpha";
 
 export class CarbonAwareServerlessJobsStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
