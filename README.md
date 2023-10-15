@@ -26,7 +26,7 @@ The infrastructure is deployed using [AWS CDK](https://aws.amazon.com/cdk/).
 
 # How do I deploy this?
 
-1. Install [NodeJs](https://nodejs.org/en)
+1. Install the latest LTS [NodeJs](https://nodejs.org/en) or [Nvm](https://github.com/nvm-sh/nvm)
 2. Clone this project
 3. Install dependencies using `yarn install`
 4. Login to your AWS Account using the [AWS CLI](https://aws.amazon.com/cli/)
