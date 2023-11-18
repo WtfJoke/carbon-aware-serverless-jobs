@@ -52,13 +52,6 @@ export class CarbonAwareServerlessJobsStack extends Stack {
       input: ScheduleTargetInput.fromObject(stateMachinePayload),
     });
 
-    // new Schedule(this, "RateSchedule", {
-    //   schedule: ScheduleExpression.rate(Duration.minutes(10)),
-    //   target: scheduleTarget,
-    //   scheduleName: "CarbonAwareComputingScheduleRate",
-    //   description: `Rate based schedule that invokes step function '${stateMachine.stateMachineName}'.`,
-    // });
-
     new Schedule(this, "AtSchedule", {
       schedule: ScheduleExpression.at(new Date("2021-10-01T17:45:00Z")),
       target: scheduleTarget,
@@ -77,30 +70,5 @@ export class CarbonAwareServerlessJobsStack extends Stack {
       scheduleName: "CarbonAwareComputingScheduleCRON",
       description: `CRON based Schedule that invokes step function '${stateMachine.stateMachineName}'.`,
     });
-
-    // // Cfn Schedule Solution Start
-    // const scheduleExecutorRole = new Role(this, "ScheduleExecutorRole", {
-    //   assumedBy: new ServicePrincipal("scheduler.amazonaws.com", {
-    //     conditions: { StringEquals: { "aws:SourceAccount": this.account } },
-    //   }),
-    // });
-    // stateMachine.grantStartExecution(scheduleExecutorRole);
-
-    // new CfnSchedule(this, "CronCfnSchedule", {
-    //   scheduleExpression: "cron(18 0 ? * TUE *)",
-    //   target: {
-    //     arn: stateMachine.stateMachineArn,
-    //     roleArn: scheduleExecutorRole.roleArn,
-    //     input: JSON.stringify(stateMachinePayload),
-    //   },
-    //   flexibleTimeWindow: {
-    //     mode: "OFF",
-    //   },
-
-    //   name: "CarbonAwareComputingScheduleCRON_CFN",
-    //   description: `CRON based Schedule that invokes step function '${stateMachine.stateMachineName}'.`,
-    //   scheduleExpressionTimezone: "Europe/Berlin",
-    // });
-    // // Cfn Schedule Solution End
   }
 }
