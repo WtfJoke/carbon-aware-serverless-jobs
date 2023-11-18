@@ -15,15 +15,6 @@ export class CarbonAwareServerlessJobsStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const fakeBatchJobTask = new Pass(this, "My long running batch job", {
-      comment: "This is my long running batch job",
-      inputPath: "$.batchJobInput",
-      result: Result.fromObject({
-        // This is the fake result of the batch job
-        success: true,
-      }),
-    });
-
     const carbonAwareComputingApiKey =
       StringParameter.fromSecureStringParameterAttributes(
         this,
@@ -32,6 +23,15 @@ export class CarbonAwareServerlessJobsStack extends Stack {
           parameterName: "/carbon-aware-computing/api-key",
         },
       );
+
+    const fakeBatchJobTask = new Pass(this, "My long running batch job", {
+      comment: "This is my long running batch job",
+      inputPath: "$.batchJobInput",
+      result: Result.fromObject({
+        // This is the fake result of the batch job
+        success: true,
+      }),
+    });
 
     const stateMachine = new CarbonAwareComputingServerlessJobsConstruct(
       this,
