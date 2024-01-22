@@ -30,7 +30,7 @@
     "@aws-cdk/aws-scheduler-targets-alpha": "2.101.0-alpha.0",
     "@aws-lambda-powertools/logger": "1.17.0",
     "@aws-lambda-powertools/parameters": "1.17.0",
-    "@aws-sdk/client-ssm": "3.490.0",
+    "@aws-sdk/client-ssm": "3.496.0",
     "aws-cdk-lib": "2.113.0",
     "constructs": "10.3.0",
     "dayjs": "1.11.10",
