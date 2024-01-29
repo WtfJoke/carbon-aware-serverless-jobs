@@ -14,7 +14,7 @@
     "generateCarbonAwareComputingModels": "npx openapi-typescript https://forecast.carbon-aware-computing.com/swagger.json -o ./lib/carbon/carbon-aware-computing/generated/schema.d.ts"
   },
   "devDependencies": {
-    "@types/aws-lambda": "8.10.131",
+    "@types/aws-lambda": "8.10.132",
     "@types/jest": "29.5.11",
     "@types/node": "18.19.8",
     "aws-cdk": "2.113.0",
