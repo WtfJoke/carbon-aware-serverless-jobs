@@ -17,3 +17,7 @@ jobs:
       - run: npm run build
       - run: npm run test
       - run: npm run cdk synth
+      - name: Sustainability Scan
+        uses: aws-actions/sustainability-scanner@v1
+        with:
+          file: 'cdk.out/CarbonAwareJobsStack.template.json'
