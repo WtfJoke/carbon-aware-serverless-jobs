@@ -37,7 +37,7 @@ export class CarbonAwareComputingServerlessJobsConstruct extends Construct {
         handler: "handler",
         description:
           "Get the best time window to run a job based on the carbon intensity of the grid using the API of https://www.carbon-aware-computing.com/.",
-        runtime: Runtime.NODEJS_18_X,
+        runtime: Runtime.NODEJS_LATEST,
         tracing: Tracing.ACTIVE,
         memorySize: 512,
         architecture: Architecture.ARM_64,
