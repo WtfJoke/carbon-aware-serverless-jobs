@@ -59,16 +59,16 @@ export class CarbonAwareServerlessJobsStack extends Stack {
       description: `Onetime Schedule that invokes step function '${stateMachine.stateMachineName}'.`,
     });
 
-    new Schedule(this, "CronSchedule", {
-      schedule: ScheduleExpression.cron({
-        weekDay: "MON",
-        hour: "19",
-        minute: "45",
-        timeZone: TimeZone.EUROPE_BERLIN,
-      }),
-      target: scheduleTarget,
-      scheduleName: "CarbonAwareComputingScheduleCRON",
-      description: `CRON based Schedule that invokes step function '${stateMachine.stateMachineName}'.`,
-    });
+    // new Schedule(this, "CronSchedule", {
+    //   schedule: ScheduleExpression.cron({
+    //     weekDay: "MON",
+    //     hour: "19",
+    //     minute: "45",
+    //     timeZone: TimeZone.EUROPE_BERLIN,
+    //   }),
+    //   target: scheduleTarget,
+    //   scheduleName: "CarbonAwareComputingScheduleCRON",
+    //   description: `CRON based Schedule that invokes step function '${stateMachine.stateMachineName}'.`,
+    // });
   }
 }
