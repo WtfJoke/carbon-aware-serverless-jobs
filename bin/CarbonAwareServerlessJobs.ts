@@ -6,6 +6,7 @@ import { CarbonAwareServerlessJobsStack } from "../lib/CarbonAwareServerlessJobs
 const app = new cdk.App();
 new CarbonAwareServerlessJobsStack(app, "CarbonAwareJobsStack", {
   tags: {
+    Name: "carbon-aware-serverless-jobs",
     service: "carbon-aware-serverless-jobs",
     repository: "https://github.com/WtfJoke/carbon-aware-serverless-jobs",
   },
