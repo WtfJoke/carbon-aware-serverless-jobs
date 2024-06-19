@@ -55,13 +55,12 @@ export class CarbonAwareComputingServerlessJobsConstruct extends Construct {
       "Get time window for best energy mix",
       {
         lambdaFunction: getBestRenewableEnergyTimeWindowLambda,
-        resultPath: "$.bestTimeWindowOutput",
       },
     );
 
     const waitStep = new Wait(this, "Wait for time Window", {
       time: WaitTime.secondsPath(
-        "$.bestTimeWindowOutput.Payload.waitTimeInSecondsForOptimalExecution",
+        "$.Payload.waitTimeInSecondsForOptimalExecution",
       ),
     });
 
