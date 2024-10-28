@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "@types/aws-lambda": "8.10.145",
-    "@types/jest": "29.5.13",
+    "@types/jest": "29.5.14",
     "@types/node": "20.16.13",
     "aws-cdk": "2.160.0",
     "esbuild": "0.24.0",
