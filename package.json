@@ -1,6 +1,7 @@
 {
   "name": "carbon-aware-serverless-jobs",
   "version": "0.1.0",
+  "type": "module",
   "bin": {
     "carbon-aware-serverless-jobs": "bin/CarbonAwareServerlessJobs.js"
   },
