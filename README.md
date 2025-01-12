@@ -7,7 +7,7 @@ The infrastructure is deployed using [AWS CDK](https://aws.amazon.com/cdk/).
 
 ## Architecture
 
-![architecturecarbonawareserverless](https://github.com/WtfJoke/carbon-aware-serverless-jobs/assets/7139697/9e37b43b-3ad2-41da-85bb-0bcdfb4eef47)
+![architecturecarbonawareserverless](images/architecturecarbonawareserverless.svg)
 
 ## Useful commands
 

@@ -8,21 +8,19 @@ import { StringParameter } from "aws-cdk-lib/aws-ssm";
 import { Pass, Result } from "aws-cdk-lib/aws-stepfunctions";
 import { Construct } from "constructs";
 import { CarbonAwareComputingServerlessJobsConstruct } from "./carbon/carbon-aware-computing/CarbonAwareComputingServerlessJobsConstruct";
-import { CarbonAwareTimeWindowPayload } from "./carbon/models";
+import { CarbonAwareTimeWindowPayload } from "./carbon/models/CarbonAwareTimeWindowPayload";
 import { StepFunctionsStartExecution } from "@aws-cdk/aws-scheduler-targets-alpha";
+import { Secret } from "aws-cdk-lib/aws-secretsmanager";
 
 export class CarbonAwareServerlessJobsStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const carbonAwareComputingApiKey =
-      StringParameter.fromSecureStringParameterAttributes(
-        this,
-        "CarbonAwareComputingApiKeyString",
-        {
-          parameterName: "/carbon-aware-computing/api-key",
-        },
-      );
+    const carbonAwareComputingApiKey = Secret.fromSecretNameV2(
+      this,
+      "CarbonAwareComputingApiKeySecret",
+      "/carbon-aware-computing/api-key",
+    );
 
     const fakeBatchJobTask = new Pass(this, "My long running batch job", {
       comment: "This is my long running batch job",
