@@ -3,8 +3,7 @@ import {
   ScheduleExpression,
   ScheduleTargetInput,
 } from "@aws-cdk/aws-scheduler-alpha";
-import { Stack, StackProps, TimeZone } from "aws-cdk-lib";
-import { StringParameter } from "aws-cdk-lib/aws-ssm";
+import { SecretValue, Stack, StackProps } from "aws-cdk-lib";
 import { Pass, Result } from "aws-cdk-lib/aws-stepfunctions";
 import { Construct } from "constructs";
 import { CarbonAwareComputingServerlessJobsConstruct } from "./carbon/carbon-aware-computing/CarbonAwareComputingServerlessJobsConstruct";
@@ -16,9 +15,7 @@ export class CarbonAwareServerlessJobsStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const carbonAwareComputingApiKey = Secret.fromSecretNameV2(
-      this,
-      "CarbonAwareComputingApiKeySecret",
+    const carbonAwareComputingApiKey = SecretValue.secretsManager(
       "/carbon-aware-computing/api-key",
     );
 

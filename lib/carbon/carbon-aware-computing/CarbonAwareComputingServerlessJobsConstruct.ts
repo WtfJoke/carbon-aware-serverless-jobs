@@ -1,7 +1,7 @@
 import { SecretValue } from "aws-cdk-lib";
 import { Authorization, Connection } from "aws-cdk-lib/aws-events";
 import { Policy, PolicyStatement } from "aws-cdk-lib/aws-iam";
-import { ISecret, Secret } from "aws-cdk-lib/aws-secretsmanager";
+import { Secret } from "aws-cdk-lib/aws-secretsmanager";
 import {
   CustomState,
   DefinitionBody,
@@ -12,7 +12,7 @@ import {
 import { Construct } from "constructs";
 
 export interface CarbonAwareComputingServerlessJobsConstructProps {
-  apiKey: ISecret;
+  apiKey: SecretValue;
   batchJobTask: IChainable;
   logOptions?: LogOptions;
 }
@@ -31,10 +31,7 @@ export class CarbonAwareComputingServerlessJobsConstruct extends Construct {
       "https://forecast.carbon-aware-computing.com/emissions/forecasts/current";
 
     const connection = new Connection(this, "CarbonAwareComputingConnection", {
-      authorization: Authorization.apiKey(
-        "x-api-key",
-        SecretValue.secretsManager(apiKey.secretName),
-      ),
+      authorization: Authorization.apiKey("x-api-key", apiKey),
       description: "https://www.carbon-aware-computing.com/",
     });
     const connectionSecret = Secret.fromSecretCompleteArn(
