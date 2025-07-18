@@ -1,33 +1,34 @@
 {
-  "name": "carbon-aware-serverless-jobs",
-  "version": "0.1.0",
-  "bin": {
-    "carbon-aware-serverless-jobs": "bin/CarbonAwareServerlessJobs.js"
-  },
-  "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
-    "test": "jest",
-    "cdk": "cdk",
-    "prettier:write": "prettier --write \"**/*.{js,ts,json,md}\"",
-    "prettier:check": "prettier --check \"**/*.{js,ts,json,md}\"",
-    "generateCarbonAwareComputingModels": "npx openapi-typescript https://forecast.carbon-aware-computing.com/swagger.json -o ./lib/carbon/carbon-aware-computing/generated/schema.d.ts"
-  },
-  "devDependencies": {
-    "@types/jest": "29.5.14",
-    "@types/node": "22.16.3",
-    "aws-cdk": "2.1020.0",
-    "jest": "29.7.0",
-    "prettier": "3.6.2",
-    "ts-jest": "29.4.0",
-    "ts-node": "10.9.2",
-    "typescript": "5.8.3"
-  },
-  "dependencies": {
-    "@aws-cdk/aws-scheduler-alpha": "2.144.0-alpha.0",
-    "@aws-cdk/aws-scheduler-targets-alpha": "2.144.0-alpha.0",
-    "aws-cdk-lib": "2.202.0",
-    "constructs": "10.4.2",
-    "source-map-support": "0.5.21"
-  }
+	"name": "carbon-aware-serverless-jobs",
+	"version": "0.1.0",
+	"bin": {
+		"carbon-aware-serverless-jobs": "bin/CarbonAwareServerlessJobs.js"
+	},
+	"scripts": {
+		"build": "tsc",
+		"watch": "tsc -w",
+		"test": "jest",
+		"cdk": "cdk",
+		"prettier:write": "prettier --write \"**/*.{js,ts,json,md}\"",
+		"prettier:check": "prettier --check \"**/*.{js,ts,json,md}\"",
+		"generateCarbonAwareComputingModels": "npx openapi-typescript https://forecast.carbon-aware-computing.com/swagger.json -o ./lib/carbon/carbon-aware-computing/generated/schema.d.ts"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.1.2",
+		"@types/jest": "29.5.14",
+		"@types/node": "22.16.3",
+		"aws-cdk": "2.1020.0",
+		"jest": "29.7.0",
+		"prettier": "3.6.2",
+		"ts-jest": "29.4.0",
+		"ts-node": "10.9.2",
+		"typescript": "5.8.3"
+	},
+	"dependencies": {
+		"@aws-cdk/aws-scheduler-alpha": "2.144.0-alpha.0",
+		"@aws-cdk/aws-scheduler-targets-alpha": "2.144.0-alpha.0",
+		"aws-cdk-lib": "2.202.0",
+		"constructs": "10.4.2",
+		"source-map-support": "0.5.21"
+	}
 }

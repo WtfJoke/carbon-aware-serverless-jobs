@@ -1,4 +1,4 @@
 {
-  "extends": ["github>wtfjoke/renovate-config-ts"],
-  "commitMessagePrefix": "⬆️"
+	"extends": ["github>wtfjoke/renovate-config-ts"],
+	"commitMessagePrefix": "⬆️"
 }
