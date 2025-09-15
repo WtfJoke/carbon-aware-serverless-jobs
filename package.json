@@ -14,10 +14,10 @@
     "generateCarbonAwareComputingModels": "npx openapi-typescript https://forecast.carbon-aware-computing.com/swagger.json -o ./lib/carbon/carbon-aware-computing/generated/schema.d.ts"
   },
   "devDependencies": {
-    "@types/jest": "29.5.14",
+    "@types/jest": "30.0.0",
     "@types/node": "22.18.3",
     "aws-cdk": "2.1023.0",
-    "jest": "29.7.0",
+    "jest": "30.1.3",
     "prettier": "3.6.2",
     "ts-jest": "29.4.1",
     "ts-node": "10.9.2",
