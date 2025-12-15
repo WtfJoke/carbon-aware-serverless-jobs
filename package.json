@@ -27,7 +27,7 @@
     "@aws-cdk/aws-scheduler-alpha": "2.144.0-alpha.0",
     "@aws-cdk/aws-scheduler-targets-alpha": "2.144.0-alpha.0",
     "aws-cdk-lib": "2.220.0",
-    "constructs": "10.4.2",
+    "constructs": "10.4.3",
     "source-map-support": "0.5.21"
   }
 }
