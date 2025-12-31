@@ -1,14 +1,14 @@
+import { SecretValue, Stack, StackProps } from "aws-cdk-lib";
 import {
   Schedule,
   ScheduleExpression,
   ScheduleTargetInput,
-} from "@aws-cdk/aws-scheduler-alpha";
-import { SecretValue, Stack, StackProps } from "aws-cdk-lib";
+} from "aws-cdk-lib/aws-scheduler";
+import { StepFunctionsStartExecution } from "aws-cdk-lib/aws-scheduler-targets";
 import { Pass, Result } from "aws-cdk-lib/aws-stepfunctions";
 import { Construct } from "constructs";
 import { CarbonAwareComputingServerlessJobsConstruct } from "./carbon/carbon-aware-computing/CarbonAwareComputingServerlessJobsConstruct";
 import { CarbonAwareTimeWindowPayload } from "./carbon/models/CarbonAwareTimeWindowPayload";
-import { StepFunctionsStartExecution } from "@aws-cdk/aws-scheduler-targets-alpha";
 import { Secret } from "aws-cdk-lib/aws-secretsmanager";
 
 export class CarbonAwareServerlessJobsStack extends Stack {
