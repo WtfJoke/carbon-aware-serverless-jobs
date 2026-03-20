@@ -9,7 +9,6 @@ import { Pass, Result } from "aws-cdk-lib/aws-stepfunctions";
 import { Construct } from "constructs";
 import { CarbonAwareComputingServerlessJobsConstruct } from "./carbon/carbon-aware-computing/CarbonAwareComputingServerlessJobsConstruct";
 import { CarbonAwareTimeWindowPayload } from "./carbon/models/CarbonAwareTimeWindowPayload";
-import { Secret } from "aws-cdk-lib/aws-secretsmanager";
 
 export class CarbonAwareServerlessJobsStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -48,7 +47,7 @@ export class CarbonAwareServerlessJobsStack extends Stack {
     });
 
     new Schedule(this, "AtSchedule", {
-      schedule: ScheduleExpression.at(new Date("2021-10-01T17:45:00Z")),
+      schedule: ScheduleExpression.at(new Date("2026-03-20T14:45:00Z")),
       target: scheduleTarget,
       scheduleName: "CarbonAwareComputingScheduleAT",
       description: `Onetime Schedule that invokes step function '${stateMachine.stateMachineName}'.`,
