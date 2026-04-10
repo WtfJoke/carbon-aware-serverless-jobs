@@ -39,7 +39,7 @@ export class CarbonAwareServerlessJobsStack extends Stack {
     const stateMachinePayload: CarbonAwareTimeWindowPayload = {
       location: "de",
       earliestDateTime: "<aws.scheduler.scheduled-time>", // Adds the EventBridge schedule time to the payload, see https://docs.aws.amazon.com/scheduler/latest/UserGuide/managing-schedule-context-attributes.html
-      latestStartInMinutes: 120,
+      latestStartInMinutes: 240,
     };
 
     const scheduleTarget = new StepFunctionsStartExecution(stateMachine, {
