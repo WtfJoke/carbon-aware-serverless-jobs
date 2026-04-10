@@ -70,7 +70,7 @@ export class CarbonAwareComputingServerlessJobsConstruct extends Construct {
     );
 
     this.stateMachine = new StateMachine(this, "Scheduler", {
-      stateMachineName: "CarbonAwareServerlessCACBatchJobsScheduler",
+      stateMachineName: "CarbonAwareServerlessBatchJobsScheduler",
       definitionBody,
       logs: logOptions,
       tracingEnabled: true,
