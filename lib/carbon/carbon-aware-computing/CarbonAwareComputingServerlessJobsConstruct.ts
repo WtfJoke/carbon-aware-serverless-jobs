@@ -38,7 +38,7 @@ export class CarbonAwareComputingServerlessJobsConstruct extends Construct {
     });
 
     const earliestDateTimeExpression =
-      "$fromMillis($toMillis($exists($states.input.earliestDateTime) ? $states.input.earliestDateTime : $now()))";
+       "$exists($states.input.earliestDateTime) ? $states.input.earliestDateTime : $now()";
     const latestStartInMillisecondsExpression =
       "$exists($states.input.latestStartInMinutes) ? $states.input.latestStartInMinutes * 60 * 1000 : 24 * 60 * 60 * 1000";
 

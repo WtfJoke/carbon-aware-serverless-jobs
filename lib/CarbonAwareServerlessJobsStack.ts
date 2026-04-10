@@ -47,7 +47,7 @@ export class CarbonAwareServerlessJobsStack extends Stack {
     });
 
     new Schedule(this, "AtSchedule", {
-      schedule: ScheduleExpression.at(new Date("2026-03-20T14:45:00Z")),
+      schedule: ScheduleExpression.at(new Date("2026-04-10T11:50:00Z")),
       target: scheduleTarget,
       scheduleName: "CarbonAwareComputingScheduleAT",
       description: `Onetime Schedule that invokes step function '${stateMachine.stateMachineName}'.`,
