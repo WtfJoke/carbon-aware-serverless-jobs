@@ -18,7 +18,8 @@
     "experimentalDecorators": true,
     "esModuleInterop": true,
     "strictPropertyInitialization": false,
-    "typeRoots": ["./node_modules/@types"]
+    "typeRoots": ["./node_modules/@types"],
+    "types": ["jest"]
   },
   "exclude": ["node_modules", "cdk.out"]
 }
