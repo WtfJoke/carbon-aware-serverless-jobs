@@ -5,6 +5,8 @@ It utilizes API's to find the the best execution time window with minimal grid c
 
 The infrastructure is deployed using [AWS CDK](https://aws.amazon.com/cdk/).
 
+I published [a blog post](https://www.codecentric.de/en/knowledge-hub/blog/your-batch-jobs-dont-know-what-time-it-is-they-should) where you can read more.
+
 ## Architecture
 
 ![architecturecarbonawareserverless](images/architecturecarbonawareserverless.svg)
