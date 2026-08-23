@@ -19,7 +19,8 @@
     "esModuleInterop": true,
     "strictPropertyInitialization": false,
     "typeRoots": ["./node_modules/@types"],
-    "types": ["jest"]
+    "types": ["jest"],
+    "outDir": "dist"
   },
-  "exclude": ["node_modules", "cdk.out"]
+  "exclude": ["node_modules", "cdk.out", "dist"]
 }
